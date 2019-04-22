@@ -75,21 +75,24 @@ implements BinarySearchTree<K, V>  {
 				super.addRight(r, e); 
 			else 
 				recInsert(right(r), e); 
-		else   // c==0 randomly pick one of the subtrees and insert there
-		{
-			double rnd = Math.random(); 
-			if (rnd < .5) 
-				if (!hasLeft(r))
-					super.addLeft(r, e); 
-				else 
-					recInsert(left(r), e); 
-			else 
-				if (!hasRight(r))
-					super.addRight(r, e); 
-				else 
-					recInsert(right(r), e); 
-
+		else if( c == 0) { // If equals adds them to the left of the node
+			super.addLeft(r, e);
 		}
+//		else   // c==0 randomly pick one of the subtrees and insert there
+//		{
+//			double rnd = Math.random();
+//			if (rnd < .5) 
+//				if (!hasLeft(r))
+//					super.addLeft(r, e); 
+//				else 
+//					recInsert(left(r), e); 
+//			else 
+//				if (!hasRight(r))
+//					super.addRight(r, e); 
+//				else 
+//					recInsert(right(r), e); 
+//
+//		}
 
 	}
 
@@ -202,6 +205,12 @@ implements BinarySearchTree<K, V>  {
 		return r;
 	}
 	
+	private Position<Entry<K, V>> findLargestPosition(Position<Entry<K, V>> r) {
+		while (right(r) != null) 
+			r = right(r); 
+		return r;
+	}
+	
 	// Forbid the direct use of the following operations, they can be invoked only in a
 	// controlled manner from methods implemented in this subclass. 
 	
@@ -251,6 +260,27 @@ implements BinarySearchTree<K, V>  {
 		if (ptr == null) return null; 
 		return ptr.getElement();
 	}
+	
+	public Entry<K, V> min(){
+		if(isEmpty()) return null;
+		return findSmallestPosition(root).getElement();
+	}
+	
+	public Entry<K, V> max(){
+		if(isEmpty()) return null;
+		return findLargestPosition(root).getElement();
+	}
+	
+	public Entry<K, V> removeMin(){
+		if(isEmpty()) return null;
+		return super.remove(findSmallestPosition(root));
+	}
+	
+	public Entry<K, V> removeMax(){
+		if(isEmpty()) return null;
+		return super.remove(findLargestPosition(root));
+	}
+
 
 	
 	private static class BSTEntry<K, V> implements ModifiableEntry<K, V> { 
