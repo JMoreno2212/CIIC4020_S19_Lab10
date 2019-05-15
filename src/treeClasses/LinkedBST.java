@@ -75,24 +75,24 @@ implements BinarySearchTree<K, V>  {
 				super.addRight(r, e); 
 			else 
 				recInsert(right(r), e); 
-		else if( c == 0) { // If equals adds them to the left of the node
-			super.addLeft(r, e);
-		}
-//		else   // c==0 randomly pick one of the subtrees and insert there
-//		{
-//			double rnd = Math.random();
-//			if (rnd < .5) 
-//				if (!hasLeft(r))
-//					super.addLeft(r, e); 
-//				else 
-//					recInsert(left(r), e); 
-//			else 
-//				if (!hasRight(r))
-//					super.addRight(r, e); 
-//				else 
-//					recInsert(right(r), e); 
-//
+//		else if( c == 0) { // If equals adds them to the left of the node
+//			super.addLeft(r, e);
 //		}
+		else   // c==0 randomly pick one of the subtrees and insert there
+		{
+			double rnd = Math.random();
+			if (rnd < .5) 
+				if (!hasLeft(r))
+					super.addLeft(r, e); 
+				else 
+					recInsert(left(r), e); 
+			else 
+				if (!hasRight(r))
+					super.addRight(r, e); 
+				else 
+					recInsert(right(r), e); 
+
+		}
 
 	}
 
